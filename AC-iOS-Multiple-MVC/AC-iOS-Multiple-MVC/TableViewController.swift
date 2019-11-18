@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TableViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,27 +21,34 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        zooAnimals = ZooAnimal.getOrigin()
+        zooAnimals = ZooAnimal.getClassification()
 
         //animals = ZooAnimal
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    guard let animalDetailsVC = segue.destination as? AnimalDetailViewController,
+               let indexPath = tableView.indexPathForSelectedRow else {
+               return
+           }
+           
+           // set animal on animalDetailsVC
+            animalDetailsVC.animal = zooAnimals[indexPath.section][indexPath.row]
+           
+       }
 
 
 }
 
-extension ViewController: UITableViewDataSource {
+extension TableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return zooAnimals.count
+        return zooAnimals[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "animalCell", for: indexPath) as? AnimalCellTableViewCell else {
-            fatalError("Couldn't dequeue a CountryCell")
+            fatalError("Couldn't dequeue a animalCell")
         }
         let animal = zooAnimals[indexPath.section][indexPath.row]
        
@@ -50,12 +57,12 @@ extension ViewController: UITableViewDataSource {
         
     }
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//
-//    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return zooAnimals.count
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return zooAnimals[section].first?.origin
+        return zooAnimals[section].first?.classification
     }
 }
 

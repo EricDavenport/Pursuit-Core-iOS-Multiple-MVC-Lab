@@ -17,7 +17,7 @@ class AnimalCellTableViewCell: UITableViewCell {
 
     func configureCell(for zooAnimal: ZooAnimal) {
         animalNameLabel.text = zooAnimal.name
-        animalOriginLabel.text = zooAnimal.origin
+        animalOriginLabel.text = "Origin: \(zooAnimal.origin)"
         animalImage.image = UIImage(named: "\(zooAnimal.imageNumber)")
     }
     

@@ -11,8 +11,8 @@ import Foundation
 class ZooAnimal {
     let name: String
     let imageNumber: Int
-    let origin: String
     let classification: String
+    let origin: String
     let info: String
     
     init(name: String, imageNumber: Int, origin: String, classification: String, info: String) {
@@ -129,28 +129,28 @@ Zebras were the second species to diverge from the earliest proto-horses, after 
     ]
     
     
-    static func getOrigin() -> [[ZooAnimal]] {
+    static func getClassification() -> [[ZooAnimal]] {
       // goes through our origins array and sorts all the elements by continent
       // < means ascending, e.g a....z
       // > meand descending, e.g z.....a
-      let sortedOrigin = zooAnimals.sorted { $0.origin < $1.origin }
+      let sortedClassification = zooAnimals.sorted { $0.classification < $1.classification }
       
       // creates unique origins titles
-      let originTitles: Set<String> = Set(zooAnimals.map { $0.origin })
+      let classificationTitles: Set<String> = Set(zooAnimals.map { $0.classification })
       
-      var sectionsArr = Array(repeating: [ZooAnimal](), count: originTitles.count)
+      var sectionsArr = Array(repeating: [ZooAnimal](), count: classificationTitles.count)
       
       
       // iterate through our origins array and add to the relevant section
       var currentIndex = 0
-      var currentOrigin = sortedOrigin.first?.origin ?? "Pursuit" // e.g Asia
-      for each in sortedOrigin {
-        if each.origin == currentOrigin {
+      var currentClassification = sortedClassification.first?.classification ?? "Pursuit" // e.g Asia
+      for each in sortedClassification {
+        if each.classification == currentClassification {
           // add to current section
             sectionsArr[currentIndex].append(each)
         } else { // visiting a new origin
           currentIndex += 1
-          currentOrigin = each.origin // updating the current origins's value
+          currentClassification = each.classification // updating the current origins's value
             sectionsArr[currentIndex].append(each)
         }
       }
