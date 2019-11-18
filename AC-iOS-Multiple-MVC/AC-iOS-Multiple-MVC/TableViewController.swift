@@ -21,6 +21,7 @@ class TableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         zooAnimals = ZooAnimal.getClassification()
 
         //animals = ZooAnimal
@@ -63,6 +64,12 @@ extension TableViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return zooAnimals[section].first?.classification
+    }
+}
+
+extension TableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 157
     }
 }
 
